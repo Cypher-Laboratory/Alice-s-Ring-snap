@@ -1,0 +1,28 @@
+{
+  "version": "0.1.18",
+  "description": "An simple snap implementing LSAG signatures. Check https://www.cypherlab.org/",
+  "proposedName": "LSAG Signatures by Cypher Lab",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Cypher-Laboratory/PrivateAirdropClaim"
+  },
+  "source": {
+    "shasum": "Ijd9fHPfcwvKEgVKqas0l9+xkdeNmVJ1ImTTVdJ8BlE=",
+    "location": {
+      "npm": {
+        "filePath": "dist/bundle.js",
+        "packageName": "@cypher-laboratory/lsag-snap",
+        "registry": "https://registry.npmjs.org/"
+      }
+    }
+  },
+  "initialPermissions": {
+    "snap_manageState": {},
+    "snap_dialog": {},
+    "endowment:rpc": {
+      "dapps": true,
+      "snaps": true
+    }
+  },
+  "manifestVersion": "0.1"
+}
