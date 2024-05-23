@@ -33,7 +33,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
 
     case 'exportAccount':
       const address = (request.params as { address: string }).address;
-      if (!address) throw new UnauthorizedError('Valid address is required');
+      if (!address) throw new UnauthorizedError('Valid address is required'); 
       return await exportAccount(address);
 
     case 'getAddresses':

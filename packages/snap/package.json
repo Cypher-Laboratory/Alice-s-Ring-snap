@@ -4,7 +4,7 @@
   "description": "A simple snap implementing LSAG signatures. Check https://www.cypherlab.org/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Cypher-Laboratory/PrivateAirdropClaim"
+    "url": "https://github.com/Cypher-Laboratory/LSAG-snap"
   },
   "license": "MIT",
   "main": "./dist/bundle.js",
