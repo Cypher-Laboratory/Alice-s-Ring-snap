@@ -49,18 +49,18 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
       },
     }))?.toString();
 
-    if(address === undefined) throw new Error('User cancelled the lsag signature process');
+    if (address === undefined) throw new Error('User cancelled the lsag signature process');
 
     if (!address || !/^(0x)?[0-9a-fA-F]{40}$/.test(address as string)) previousIsFalse = true;
 
     // check if the receiving address is in the ring
-    if (ring.find((point) => Point.deserialize(point).toEthAddress() === address || addressToUse === address)) {
+    if (ring.find((point) => Point.deserialize(point).toEthAddress().toLowerCase() === address ? address.toLowerCase() : "" || addressToUse.toLowerCase() === (address ? address.toLowerCase() : ""))) {
       isInRing = true;
       throw new Error('The claimer address cannot be in the ring');
     }
 
     // check if the address is a valid hex string with 42 characters. if it is not, ask the user to enter a valid address
-  } while (!address || !/^(0x)?[0-9a-fA-F]{40}$/.test(address as string));
+  } while (!address || !/^(0x)?[0-9a-fA-F]{40}$/.test(address as string) || isInRing);
 
 
   console.log('address:', address);
