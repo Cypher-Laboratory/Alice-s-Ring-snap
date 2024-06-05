@@ -36,6 +36,7 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
       text('Enter the address you will use to claim the reward:'),
     ] : [
       heading('Claimer Address'),
+      isInRing ? text('**The claimer address cannot be in the ring**') : text(''),
       text('Enter the address you will use to claim the reward:')
     ]
 
@@ -54,9 +55,8 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
     if (!address || !/^(0x)?[0-9a-fA-F]{40}$/.test(address as string)) previousIsFalse = true;
 
     // check if the receiving address is in the ring
-    if (ring.find((point) => Point.deserialize(point).toEthAddress().toLowerCase() === address ? address.toLowerCase() : "" || addressToUse.toLowerCase() === (address ? address.toLowerCase() : ""))) {
+    if (address && ring.find((point) => Point.deserialize(point).toEthAddress() === address!.toLowerCase() || addressToUse.toLowerCase() === address!.toLowerCase())) {
       isInRing = true;
-      throw new Error('The claimer address cannot be in the ring');
     }
 
     // check if the address is a valid hex string with 42 characters. if it is not, ask the user to enter a valid address
