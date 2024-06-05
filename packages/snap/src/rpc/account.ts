@@ -286,7 +286,7 @@ export async function getAddresses() {
       type: DialogType.Confirmation,
       content: panel([
         heading(`Get addresses:`),
-        text('Allow this snap to access all your farming addresses?'),
+        text('Allow this snap to access all your addresses?'),
         ...copyableAddresses
       ]),
     },
