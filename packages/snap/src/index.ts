@@ -45,8 +45,8 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
       return await LSAG_Signature(ring, message, addressToUse, linkabilityFlag);
 
     case 'PrivateAirdropClaim_LSAG_Signature':
-      const payload = (request.params as { ring: string[], claim_contract_address: string, addressToUse: string });
-      return await PAC_LSAG_Signature(payload.ring, payload.claim_contract_address, payload.addressToUse);
+      const payload = (request.params as { ring: string[], claim_contract_address: string, addressToUse: string, airdropTier: string, chainId: string });
+      return await PAC_LSAG_Signature(payload.ring, payload.claim_contract_address, payload.addressToUse, payload.airdropTier, payload.chainId);
 
     default:
       throw new Error('Method not found.');

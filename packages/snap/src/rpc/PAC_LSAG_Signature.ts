@@ -3,7 +3,7 @@ import { State } from "../interfaces";
 import { DialogType, text, panel, ManageStateOperation, heading, copyable } from "@metamask/snaps-sdk";
 
 
-export async function PAC_LSAG_Signature(ring: string[], claim_contract_address: string, addressToUse: string): Promise<string> {
+export async function PAC_LSAG_Signature(ring: string[], claim_contract_address: string, addressToUse: string, airdropTier: string, chainId: string): Promise<string> {
   const secp256k1 = new Curve(CurveName.SECP256K1);
   const deserializedRing = ring.map((point) => Point.deserialize(point));
 
@@ -67,6 +67,8 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
   const message = JSON.stringify({
     claimContractAddress: claim_contract_address,
     claimerAddress: address,
+    tier: airdropTier,
+    chainId,
   });
   console.log('message:', message);
   const approval = await snap.request({
@@ -81,6 +83,8 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
         copyable(claim_contract_address),
         text('Claimer address: '),
         copyable(address as string),
+        text('Airdrop Tier: ' + airdropTier),
+        text('Chain ID: ' + chainId),
         text('Ring size: ' + ring.length),
         text('Message:'),
         copyable(message),

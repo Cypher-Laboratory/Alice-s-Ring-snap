@@ -1,5 +1,5 @@
 {
-  "version": "0.1.26",
+  "version": "0.1.27",
   "description": "An simple snap implementing LSAG signatures. Check https://www.cypherlab.org/",
   "proposedName": "LSAG Signatures by Cypher Lab",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/Cypher-Laboratory/LSAG-snap"
   },
   "source": {
-    "shasum": "tkk2u8as+i6ykeKFfStwgQnAgXGQCNoFtP1HdLiD3RM=",
+    "shasum": "YxOS2WWAcrHap3bEmfZCRrmlKdbig2G7eIUx8FCQe+w=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
