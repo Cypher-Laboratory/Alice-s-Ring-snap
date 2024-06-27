@@ -16,7 +16,7 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
   if (!state || !state.account) throw new Error('No account found');
 
   // get the private key from the account. else throw error
-  const privateKey = state.account.find((acc) => acc.address === addressToUse)?.privateKey;
+  const privateKey = state.account.find((acc) => acc.address.toLowerCase() === addressToUse.toLowerCase())?.privateKey;
   // console.log('state:\n', state?.account);
   // console.log("str\n", JSON.stringify(state));
   // console.log("test\n", typeof (state.account[0]?.address), state.account[0]?.address);
@@ -55,7 +55,7 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
     if (!address || !/^(0x)?[0-9a-fA-F]{40}$/.test(address as string)) previousIsFalse = true;
 
     // check if the receiving address is in the ring
-    if (address && ring.find((point) => Point.deserialize(point).toEthAddress() === address!.toLowerCase() || addressToUse.toLowerCase() === address!.toLowerCase())) {
+    if (address && ring.find((point) => Point.deserialize(point).toEthAddress().toLowerCase() === address!.toLowerCase() || addressToUse.toLowerCase() === address!.toLowerCase())) {
       isInRing = true;
     }
 
@@ -96,5 +96,5 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
   console.log('enter signing process');
   const signature = RingSignature.sign(deserializedRing, BigInt(privateKey), message, secp256k1, claim_contract_address);
   console.log('signature:', signature.toBase64());
-  return JSON.stringify(signature.toBase64());
+  return signature.toBase64();
 }

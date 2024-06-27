@@ -2,6 +2,7 @@ import { OnRpcRequestHandler, UnauthorizedError } from '@metamask/snaps-sdk';
 import { exportAccount, getAddresses, getNewAccount, importAccount } from './rpc/account';
 import { LSAG_Signature } from './rpc/LSAG_Signature';
 import { PAC_LSAG_Signature } from './rpc/PAC_LSAG_Signature';
+import { getKeyImages } from './rpc/getKeyImages';
 
 /**
  * Handle incoming JSON-RPC requests, sent through `wallet_invokeSnap`.
@@ -33,7 +34,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
 
     case 'exportAccount':
       const address = (request.params as { address: string }).address;
-      if (!address) throw new UnauthorizedError('Valid address is required'); 
+      if (!address) throw new UnauthorizedError('Valid address is required');
       return await exportAccount(address);
 
     case 'getAddresses':
@@ -47,6 +48,11 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
     case 'PrivateAirdropClaim_LSAG_Signature':
       const payload = (request.params as { ring: string[], claim_contract_address: string, addressToUse: string, airdropTier: string, chainId: string });
       return await PAC_LSAG_Signature(payload.ring, payload.claim_contract_address, payload.addressToUse, payload.airdropTier, payload.chainId);
+
+    case 'ExportKeyImages':
+      const { addresses, linkabilityFactor } = (request.params as { addresses: string[], linkabilityFactor: string });
+
+      return await getKeyImages(addresses, linkabilityFactor);
 
     default:
       throw new Error('Method not found.');
