@@ -47,11 +47,13 @@
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false,
       "sharp": true,
-      "@cypher-laboratory/alicesring-lsag>ts-node>@swc/core": false
+      "@cypher-laboratory/alicesring-lsag>ts-node>@swc/core": false,
+      "@cypher-laboratory/alicesring-sag>ts-node>@swc/core": false
     }
   },
   "dependencies": {
     "@cypher-laboratory/alicesring-lsag": "snap",
+    "@cypher-laboratory/alicesring-sag": "snap",
     "ethers": "5.7.2"
   }
 }

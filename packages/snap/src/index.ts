@@ -3,6 +3,7 @@ import { exportAccount, getAddresses, getNewAccount, importAccount } from './rpc
 import { LSAG_Signature } from './rpc/LSAG_Signature';
 import { PAC_LSAG_Signature } from './rpc/PAC_LSAG_Signature';
 import { getKeyImages } from './rpc/getKeyImages';
+import { SAG_Signature } from './rpc/SAG_Signature';
 
 /**
  * Handle incoming JSON-RPC requests, sent through `wallet_invokeSnap`.
@@ -40,10 +41,17 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
     case 'getAddresses':
       return await getAddresses();
 
-    case 'LSAG_Signature':
+    case 'SAG_Signature': {
+      const { ring, message, addressToUse } = (request.params as { ring: string[], message: string, addressToUse: string });
+      console.log('LSAG_Signature');
+      return await SAG_Signature(ring, message, addressToUse);
+    }
+
+    case 'LSAG_Signature': {
       const { ring, message, addressToUse, linkabilityFlag } = (request.params as { ring: string[], message: string, addressToUse: string, linkabilityFlag: string });
       console.log('LSAG_Signature');
       return await LSAG_Signature(ring, message, addressToUse, linkabilityFlag);
+    }
 
     case 'PrivateAirdropClaim_LSAG_Signature':
       const payload = (request.params as { ring: string[], claim_contract_address: string, addressToUse: string, airdropTier: string, chainId: string });

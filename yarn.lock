@@ -1655,9 +1655,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cypher-laboratory/lsag-snap@workspace:packages/snap":
+"@cypher-laboratory/alicesring-sag@npm:snap":
+  version: 0.2.4
+  resolution: "@cypher-laboratory/alicesring-sag@npm:0.2.4"
+  dependencies:
+    "@noble/hashes": ^1.3.2
+    crypto-browserify: ^3.12.0
+    ts-node: ^10.9.1
+  checksum: 2df6bc9e3da8e36fc259e2e2dfcda4de384c406ef6d19845d6450f1341227656bf2aeda003c8dddb5e0be47b2c509087aa4d65df40f6fc127d639e536eb9c9a9
+  languageName: node
+  linkType: hard
+
+"@cypher-laboratory/alicesring-snap@workspace:packages/snap":
   version: 0.0.0-use.local
-  resolution: "@cypher-laboratory/lsag-snap@workspace:packages/snap"
+  resolution: "@cypher-laboratory/alicesring-snap@workspace:packages/snap"
   dependencies:
     "@jest/globals": ^29.5.0
     "@metamask/auto-changelog": ^3.4.4
@@ -16940,6 +16951,7 @@ __metadata:
   resolution: "root@workspace:."
   dependencies:
     "@cypher-laboratory/alicesring-lsag": snap
+    "@cypher-laboratory/alicesring-sag": snap
     "@lavamoat/allow-scripts": ^3.0.0
     "@lavamoat/preinstall-always-fail": ^2.0.0
     "@metamask/eslint-config": ^12.2.0

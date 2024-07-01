@@ -112,19 +112,18 @@ const Index = () => {
 
   const handleSendHelloClick = async () => {
     // console.log(await invokeSnap({ method: 'getAddresses', params: { address: "0x063b0881bcA7D9F0097D5f6300cE765EDc57E3f2" }}));
-    console.log(await invokeSnap({ method: 'newAccount' }));
+    console.log(await invokeSnap({ method: 'importAccount' }));
     const params = {
       ring: [
         '030066ba293cc22d0eadbe494e9bd4d6d05c3e09d74dff0e991075de74b2359678',
         '0316d7da70ba247a6a40bb310187e8789b80c45fa6dc0061abb8ced49cbe7f887f',
         '0221869ca3ae33be3a7327e9a0272203afa72c52a5460ceb9f4a50930531bd926a'
       ],
-      linkabilityFlag: "linkabilityFlag",
       message: "Hello, World!",
-      addressToUse: "0xC705B28605732a32524C9112df4e6355637Bf809"
-    } satisfies { ring: string[], linkabilityFlag: string, addressToUse: string, message: string};
+      addressToUse: "0x852eE1B990bc39041232Ea832e77b789481d6b6d"
+    } satisfies { ring: string[], addressToUse: string, message: string};
     console.log("params: ", params);
-    console.log(await invokeSnap({ method: 'LSAG_Signature', params: params }));
+    console.log("result:\n", await invokeSnap({ method: 'SAG_Signature', params: params }));
   };
 
   return (

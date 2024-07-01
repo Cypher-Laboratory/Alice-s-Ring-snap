@@ -1,17 +1,17 @@
 {
-  "version": "0.1.31",
-  "description": "An simple snap implementing LSAG signatures. Check https://www.cypherlab.org/",
-  "proposedName": "LSAG Signatures by Cypher Lab",
+  "version": "0.2.0",
+  "description": "A simple snap implementing SAG and LSAG signatures. Check https://www.cypherlab.org/",
+  "proposedName": "Ring Signatures by Cypher Lab",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Cypher-Laboratory/LSAG-snap"
+    "url": "https://github.com/Cypher-Laboratory/Alice-s-Ring-snap"
   },
   "source": {
-    "shasum": "R4Ajzq9Hb1bvAOAq5PltpFcVfph5+9cWVw1ZRw5Ya74=",
+    "shasum": "JB1kUO3V1UnD5jHmAsEaUeYcF+hbbfN2a92A8nLAQ9U=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "packageName": "@cypher-laboratory/lsag-snap",
+        "packageName": "@cypher-laboratory/alicesring-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }

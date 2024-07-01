@@ -1,10 +1,10 @@
 {
-  "name": "@cypher-laboratory/lsag-snap",
-  "version": "0.1.31",
-  "description": "A simple snap implementing LSAG signatures. Check https://www.cypherlab.org/",
+  "name": "@cypher-laboratory/alicesring-snap",
+  "version": "0.2.0",
+  "description": "A simple snap implementing SAG and LSAG signatures. Check https://www.cypherlab.org/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Cypher-Laboratory/LSAG-snap"
+    "url": "https://github.com/Cypher-Laboratory/Alice-s-Ring-snap"
   },
   "license": "MIT",
   "main": "./dist/bundle.js",
