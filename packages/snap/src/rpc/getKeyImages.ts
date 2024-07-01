@@ -74,7 +74,7 @@ export async function getKeyImages(addresses: string[], linkabilityFlag: string)
 
   for (const address of addresses) {
 
-    const account = state.account.find((acc) => acc.address === address);
+    const account = state.account.find((acc) => acc.address.toLowerCase() === address.toLowerCase());
     const curve = new Curve(CurveName.SECP256K1);
 
     if (account) {

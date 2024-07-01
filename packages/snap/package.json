@@ -1,6 +1,6 @@
 {
   "name": "@cypher-laboratory/alicesring-snap",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A simple snap implementing SAG and LSAG signatures. Check https://www.cypherlab.org/",
   "repository": {
     "type": "git",
