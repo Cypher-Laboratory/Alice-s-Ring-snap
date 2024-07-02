@@ -1,8 +1,5 @@
 
 export interface State {
-  // connectedUrls?: {
-  //   [url: string]: boolean;
-  // };
 
   account?: {
     privateKey: string;

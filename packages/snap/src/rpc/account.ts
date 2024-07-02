@@ -2,7 +2,7 @@ import { DialogType, text, panel, ManageStateOperation, heading, copyable, Json 
 import { State } from "../interfaces";
 import { ethers } from "ethers";
 
-
+// create a new account in the snap
 export async function getNewAccount() {
   const response = await snap.request({
     method: 'snap_dialog',

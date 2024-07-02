@@ -2,7 +2,7 @@ import { Curve, CurveName, Point, RingSignature } from "@cypher-laboratory/alice
 import { State } from "../interfaces";
 import { DialogType, text, panel, ManageStateOperation, heading, copyable } from "@metamask/snaps-sdk";
 
-
+// sign a message using the SAG scheme
 export async function SAG_Signature(ring: string[], message: string, addressToUse: string): Promise<string> {
   const secp256k1 = new Curve(CurveName.SECP256K1);
   const deserializedRing = ring.map((point) => Point.deserialize(point));
@@ -36,14 +36,10 @@ export async function SAG_Signature(ring: string[], message: string, addressToUs
       ]),
     },
   });
-  console.log('approval:', approval);
-  console.log('account to use:', addressToUse, privateKey);
-  console.log('message:', message)
-  console.log('ring:', ring);
 
   if (!approval) throw new Error('User denied signing message');
-  console.log('enter signing process');
+
   const signature = RingSignature.sign(deserializedRing, BigInt(privateKey), message, secp256k1, { evmCompatibility: true });
-  console.log('signature:', signature.toBase64());
+
   return signature.toBase64();
 }

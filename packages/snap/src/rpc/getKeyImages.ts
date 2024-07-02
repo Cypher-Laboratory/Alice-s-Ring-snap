@@ -3,13 +3,14 @@ import { State } from "../interfaces";
 import { ecHash } from "@cypher-laboratory/alicesring-lsag/dist/src/utils/hashFunction";
 import { Curve, CurveName } from "@cypher-laboratory/alicesring-lsag";
 
+
+// get the key images for all the wanted addresses with the desired linkability flag
 export async function getKeyImages(addresses: string[], linkabilityFlag: string): Promise<{ address: string, keyImage: string, linkabilityFlag: string }[] | null> {
 
   const state: State = await snap.request({
     method: 'snap_manageState',
     params: { operation: ManageStateOperation.GetState },
   }) as object as State;
-
 
   if (!state || !state.account) {
     return [];
@@ -68,7 +69,6 @@ export async function getKeyImages(addresses: string[], linkabilityFlag: string)
     if (!approval) throw new Error('User denied the exportation request');
 
   }
-
 
   const keyImages: { address: string, keyImage: string, linkabilityFlag: string }[] = [];
 

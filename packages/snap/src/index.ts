@@ -20,12 +20,6 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
   request,
 }) => {
 
-  // reset storage -> fort debug
-  // await snap.request({
-  //   method: 'snap_manageState',
-  //   params: { operation: ManageStateOperation.ClearState },
-  // }) as object as State;
-
   switch (request.method) {
     case 'newAccount':
       return await getNewAccount();
@@ -59,7 +53,6 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
 
     case 'ExportKeyImages':
       const { addresses, linkabilityFactor } = (request.params as { addresses: string[], linkabilityFactor: string });
-
       return await getKeyImages(addresses, linkabilityFactor);
 
     default:

@@ -2,7 +2,7 @@ import { Curve, CurveName, Point, RingSignature } from "@cypher-laboratory/alice
 import { State } from "../interfaces";
 import { DialogType, text, panel, ManageStateOperation, heading, copyable } from "@metamask/snaps-sdk";
 
-
+// sign a message using the Linkable SAG scheme, special version adapter for the cypher lab x iexec private claim POC
 export async function PAC_LSAG_Signature(ring: string[], claim_contract_address: string, addressToUse: string, airdropTier: string, chainId: string): Promise<string> {
   const secp256k1 = new Curve(CurveName.SECP256K1);
   const deserializedRing = ring.map((point) => Point.deserialize(point));
@@ -17,10 +17,7 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
 
   // get the private key from the account. else throw error
   const privateKey = state.account.find((acc) => acc.address.toLowerCase() === addressToUse.toLowerCase())?.privateKey;
-  // console.log('state:\n', state?.account);
-  // console.log("str\n", JSON.stringify(state));
-  // console.log("test\n", typeof (state.account[0]?.address), state.account[0]?.address);
-  // console.log('privateKey:', privateKey);
+
   if (!privateKey) throw new Error('No private key found');
 
   // get the claimer receiving address:
@@ -62,15 +59,13 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
     // check if the address is a valid hex string with 42 characters. if it is not, ask the user to enter a valid address
   } while (!address || !/^(0x)?[0-9a-fA-F]{40}$/.test(address as string) || isInRing);
 
-
-  console.log('address:', address);
   const message = JSON.stringify({
     claimContractAddress: claim_contract_address,
     claimerAddress: address,
     tier: airdropTier,
     chainId,
   });
-  console.log('message:', message);
+
   const approval = await snap.request({
     method: 'snap_dialog',
     params: {
@@ -91,10 +86,10 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
       ]),
     },
   });
-  // console.log('approval:', approval);
+
   if (!approval) throw new Error('User denied signing message');
-  console.log('enter signing process');
+
   const signature = RingSignature.sign(deserializedRing, BigInt(privateKey), message, secp256k1, claim_contract_address);
-  console.log('signature:', signature.toBase64());
+
   return signature.toBase64();
 }
