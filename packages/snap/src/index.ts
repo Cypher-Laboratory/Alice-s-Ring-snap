@@ -37,13 +37,11 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
 
     case 'SAG_Signature': {
       const { ring, message, addressToUse } = (request.params as { ring: string[], message: string, addressToUse: string });
-      console.log('LSAG_Signature');
       return await SAG_Signature(ring, message, addressToUse);
     }
 
     case 'LSAG_Signature': {
       const { ring, message, addressToUse, linkabilityFlag } = (request.params as { ring: string[], message: string, addressToUse: string, linkabilityFlag: string });
-      console.log('LSAG_Signature');
       return await LSAG_Signature(ring, message, addressToUse, linkabilityFlag);
     }
 
