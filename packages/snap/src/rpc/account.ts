@@ -1,6 +1,14 @@
-import { DialogType, text, panel, ManageStateOperation, heading, copyable, Json } from "@metamask/snaps-sdk";
-import { State } from "../interfaces";
-import { ethers } from "ethers";
+import {
+  DialogType,
+  text,
+  panel,
+  ManageStateOperation,
+  heading,
+  copyable,
+  Json,
+} from '@metamask/snaps-sdk';
+import { State } from '../interfaces';
+import { ethers } from 'ethers';
 
 // create a new account in the snap
 export async function getNewAccount() {
@@ -10,57 +18,59 @@ export async function getNewAccount() {
       type: DialogType.Confirmation,
       content: panel([
         heading(`Add account`),
-        text('You are going to generate a new account. Please manually copy the seed phrase on a physical support and keep it safe.'),
+        text(
+          'You are going to generate a new account. Please manually copy the seed phrase on a physical support and keep it safe.',
+        ),
       ]),
     },
   });
 
-  if (response === true) {
+  if (response === false) return 'cancelled';
 
-    const account = generateAccount();
+  const account = generateAccount();
 
-    await snap.request({
-      method: 'snap_dialog',
-      params: {
-        type: DialogType.Alert,
-        content: panel([
-          heading(`Add account`),
-          text('Here is your new account seed phrase:'),
-          copyable(account.mnemonic),
-          text('Here is your new account address:'),
-          copyable(account.address),
-          text(
-            '**This seed phrase key should be kept secret. Please write it down on a paper and avoid any electronic way to save it**',
-          ),
-        ]),
-      },
-    });
+  await snap.request({
+    method: 'snap_dialog',
+    params: {
+      type: DialogType.Alert,
+      content: panel([
+        heading(`Add account`),
+        text('Here is your new account seed phrase:'),
+        copyable(account.mnemonic),
+        text('Here is your new account address:'),
+        copyable(account.address),
+        text(
+          '**This seed phrase key should be kept secret. Please write it down on a paper and avoid any electronic way to save it**',
+        ),
+      ]),
+    },
+  });
 
-    // save account to state
-    let state: State = await snap.request({
-      method: 'snap_manageState',
-      params: { operation: ManageStateOperation.GetState },
-    }) as object as State;
+  // save account to state
+  let state: State = (await snap.request({
+    method: 'snap_manageState',
+    params: { operation: ManageStateOperation.GetState },
+  })) as object as State;
 
-    if (!state) state = {};
+  if (!state) state = {};
 
-    if (!state.account) state.account = [];
+  if (!state.account) state.account = [];
 
-    state.account.push({
-      privateKey: account.privateKey,
-      address: account.address,
-      mnemonic: account.mnemonic,
-    });
+  state.account.push({
+    privateKey: account.privateKey,
+    address: account.address,
+    mnemonic: account.mnemonic,
+  });
 
-    await snap.request({
-      method: 'snap_manageState',
-      params: { operation: ManageStateOperation.UpdateState, newState: state as Record<string, Json> },
-    });
-    
-    return account.address;
-  }
+  await snap.request({
+    method: 'snap_manageState',
+    params: {
+      operation: ManageStateOperation.UpdateState,
+      newState: state as Record<string, Json>,
+    },
+  });
 
-  return "cancelled";
+  return account.address;
 }
 
 export async function importAccount() {
@@ -78,24 +88,20 @@ export async function importAccount() {
   let account = {
     privateKey: '',
     mnemonic: '',
-    address: ''
-  }
-  // console.log("seed:\n", seedOrPrivateKey?.toString());
+    address: '',
+  };
 
   try {
     if (seedOrPrivateKey?.toString().startsWith('0x')) {
-      // console.log("private key: ", seedOrPrivateKey);
       const retrievedAccount = new ethers.Wallet(seedOrPrivateKey.toString());
-      // console.log("retrievedAccount:\n", retrievedAccount);
       account.privateKey = retrievedAccount.privateKey;
-      // console.log("account0:\n", account);
       account.address = retrievedAccount.address;
-      // console.log("account1:\n", account);
       account.mnemonic = ''; // todo: fix retrievedAccount.mnemonic.phrase;
-      throw new Error("Not implemented yet");
+      throw new Error('Not implemented yet');
     } else {
-      // console.log("mnemonic");
-      const retrievedAccount = ethers.Wallet.fromMnemonic(seedOrPrivateKey!.toString());
+      const retrievedAccount = ethers.Wallet.fromMnemonic(
+        seedOrPrivateKey!.toString(),
+      );
       account.privateKey = retrievedAccount.privateKey;
       account.address = retrievedAccount.address;
       account.mnemonic = seedOrPrivateKey!.toString();
@@ -115,16 +121,17 @@ export async function importAccount() {
   }
 
   // check if account already exists
-  let state: State = await snap.request({
+  let state: State = (await snap.request({
     method: 'snap_manageState',
     params: { operation: ManageStateOperation.GetState },
-  }) as object as State;
+  })) as object as State;
 
   if (!state) state = {};
 
   if (!state.account) state.account = [];
-  const existingAccount = state.account.find((acc) => acc.address === account.address);
-  // console.log("state:\n", state);
+  const existingAccount = state.account.find(
+    (acc) => acc.address === account.address,
+  );
 
   if (existingAccount) {
     return await snap.request({
@@ -148,7 +155,10 @@ export async function importAccount() {
 
   await snap.request({
     method: 'snap_manageState',
-    params: { operation: ManageStateOperation.UpdateState, newState: state as Record<string, Json> },
+    params: {
+      operation: ManageStateOperation.UpdateState,
+      newState: state as Record<string, Json>,
+    },
   });
 
   return await snap.request({
@@ -168,30 +178,26 @@ function generateAccount() {
   return {
     privateKey: account.privateKey,
     mnemonic: account.mnemonic.phrase,
-    address: account.address
-  }
+    address: account.address,
+  };
 }
-
 
 export async function exportAccount(address: string) {
   // get mnemonic from state
-  const state: State = await snap.request({
+  const state: State = (await snap.request({
     method: 'snap_manageState',
     params: { operation: ManageStateOperation.GetState },
-  }) as object as State;
-  console.log("state:\n", state?.account);
+  })) as object as State;
+
   if (!state || !state.account) {
     return await snap.request({
       method: 'snap_dialog',
       params: {
         type: DialogType.Alert,
-        content: panel([
-          heading('Export account'),
-          text(`No account found`),
-        ]),
+        content: panel([heading('Export account'), text(`No account found`)]),
       },
     });
-  };
+  }
 
   const approval = await snap.request({
     method: 'snap_dialog',
@@ -202,66 +208,57 @@ export async function exportAccount(address: string) {
         text(`Exported account:`),
         copyable(address),
         text('Are you sure you want to export this account?'),
-        text('**Be careful when exporting your mnemonic. Anyone with access to it can access your account and all your funds**'),
+        text(
+          '**Be careful when exporting your mnemonic. Anyone with access to it can access your account and all your funds**',
+        ),
       ]),
     },
   });
 
-  if (approval) {
-    const account = state.account.find((acc) => acc.address === address);
+  if (!approval) return 'cancelled';
 
-    if (!account) {
-      return await snap.request({
-        method: 'snap_dialog',
-        params: {
-          type: DialogType.Alert,
-          content: panel([
-            heading('Export account'),
-            text(`Account not found`),
-          ]),
-        },
-      });
-    }
+  const account = state.account.find((acc) => acc.address === address);
 
-    await snap.request({
+  if (!account) {
+    return await snap.request({
       method: 'snap_dialog',
       params: {
         type: DialogType.Alert,
-        content: panel([
-          heading('Export account'),
-          text(`Exported account:`),
-          copyable(address),
-          text('Here is your mnemonic:'),
-          copyable(ethers.Wallet.fromMnemonic(account.mnemonic).mnemonic.phrase),
-        ]),
+        content: panel([heading('Export account'), text(`Account not found`)]),
       },
     });
   }
 
-  return "cancelled";
+  await snap.request({
+    method: 'snap_dialog',
+    params: {
+      type: DialogType.Alert,
+      content: panel([
+        heading('Export account'),
+        text(`Exported account:`),
+        copyable(address),
+        text('Here is your mnemonic:'),
+        copyable(ethers.Wallet.fromMnemonic(account.mnemonic).mnemonic.phrase),
+      ]),
+    },
+  });
 }
 
-
-
 export async function getAddresses() {
-  const state: State = await snap.request({
+  const state: State = (await snap.request({
     method: 'snap_manageState',
     params: { operation: ManageStateOperation.GetState },
-  }) as object as State;
-
+  })) as object as State;
 
   if (!state || !state.account) {
     return await snap.request({
       method: 'snap_dialog',
       params: {
         type: DialogType.Alert,
-        content: panel([
-          heading('Get addresses'),
-          text(`No account found`),
-        ]),
+        content: panel([heading('Get addresses'), text(`No account found`)]),
       },
     });
-  };
+  }
 
   const addresses = state.account.map((acc) => acc.address);
 
@@ -270,10 +267,7 @@ export async function getAddresses() {
       method: 'snap_dialog',
       params: {
         type: DialogType.Alert,
-        content: panel([
-          heading('Get addresses'),
-          text(`No account found`),
-        ]),
+        content: panel([heading('Get addresses'), text(`No account found`)]),
       },
     });
   }
@@ -287,11 +281,10 @@ export async function getAddresses() {
       content: panel([
         heading(`Get addresses:`),
         text('Allow this snap to access all your addresses?'),
-        ...copyableAddresses
+        ...copyableAddresses,
       ]),
     },
   });
-
 
   if (approval) {
     return JSON.stringify({ addresses: addresses });
