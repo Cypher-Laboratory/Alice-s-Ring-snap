@@ -1,6 +1,6 @@
 import { Curve, CurveName, Point, RingSignature } from "@cypher-laboratory/alicesring-sag";
-import { State } from "../interfaces";
-import { DialogType, text, panel, ManageStateOperation, heading, copyable } from "@metamask/snaps-sdk";
+import { DialogType, text, panel, heading, copyable } from "@metamask/snaps-sdk";
+import { getPrivateKey } from "../utils";
 
 // sign a message using the SAG scheme
 export async function SAG_Signature(ring: string[], message: string, addressToUse: string): Promise<string> {
@@ -8,15 +8,7 @@ export async function SAG_Signature(ring: string[], message: string, addressToUs
   const deserializedRing = ring.map((point) => Point.deserialize(point));
 
   // get private key from storage
-  const state: State = await snap.request({
-    method: 'snap_manageState',
-    params: { operation: ManageStateOperation.GetState },
-  }) as object as State;
-
-  if (!state || !state.account) throw new Error('No account found');
-
-  // get the private key from the account. else throw error
-  const privateKey = state.account.find((acc) => acc.address === addressToUse)?.privateKey;
+  const privateKey = await getPrivateKey(addressToUse);
 
   if (!privateKey) throw new Error('No private key found');
 
