@@ -22,7 +22,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
 
   switch (request.method) {
     case 'newAccount':
-      return await getNewAccount();
+      return await getNewAccount() as any; // as any, else 'onRpcRequest' is marked as error
 
     case 'importAccount':
       return await importAccount();
