@@ -1,5 +1,5 @@
 {
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Use SAG and LSAG signature in metamask to create privacy enhanced DApps",
   "proposedName": "Ring Signatures",
   "repository": {
@@ -7,10 +7,11 @@
     "url": "https://github.com/Cypher-Laboratory/Alice-s-Ring-snap"
   },
   "source": {
-    "shasum": "ZWmlIl+j5w8pqkDDz+8KLcczzgCC6RkIrXH/wMkMjQI=",
+    "shasum": "UvmsxNPOHK1CW8QNmW9aQcVhvX4veOqQkMVvyFvVH1A=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
+        "iconPath": "images/ring.svg",
         "packageName": "@cypher-laboratory/alicesring-snap",
         "registry": "https://registry.npmjs.org/"
       }
