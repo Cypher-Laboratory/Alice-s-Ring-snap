@@ -9,7 +9,15 @@ More about ring signatures [here](https://people.csail.mit.edu/rivest/pubs/RST01
 - Create an ethereum account
 - Import an ethereum account using a mnemonic
 - export the snap addresses
-- sign a message using LSAG with the snap
+- sign a message using SAG and LSAG with the snap
+- Verify a SAG or LSAG signature
+
+## What are Ring Signatures
+Ring signatures are a type of digital signature that allows a group of users to sign a message anonymously. Unlike traditional digital signatures uniquely linked to one user, ring signatures obscure who specifically authored a message by linking multiple possible signers together in a "ring".
+Ring signatures help preserve privacy and anonymity through obscuring the specific originator of a message. By grouping possible signers in a "ring", there is no way to definitively pinpoint the actual individual who authored the content. This prevents transactions from being easily traced back to a single user. The larger the ring of possible signers, the more anonymity is provided to the real originator.
+
+Ring signatures have been a cryptographic technique known to cryptographers for several years, but their use within the Blockchain ecosystem has been limited. The Monero blockchain can be noted as one of the first blockchain to employ this cryptographic solution at the protocol level. However, there is currently no complete, robust, and audited implementation of ring signatures adapted for browser environment. This is where we come in!
+
 
 ## Installation & usage
 
