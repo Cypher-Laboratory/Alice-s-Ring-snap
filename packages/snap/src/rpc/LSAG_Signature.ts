@@ -1,6 +1,6 @@
 import { Curve, CurveName, Point, RingSignature } from "@cypher-laboratory/alicesring-lsag";
-import { State } from "../interfaces";
-import { DialogType, text, panel, ManageStateOperation, heading, copyable } from "@metamask/snaps-sdk";
+import { DialogType, text, panel, heading, copyable } from "@metamask/snaps-sdk";
+import { getPrivateKey } from "../utils";
 
 // sign a message using the Linkable SAG scheme
 export async function LSAG_Signature(ring: string[], message: string, addressToUse: string, linkabilityFlag: string): Promise<string> {
@@ -8,20 +8,7 @@ export async function LSAG_Signature(ring: string[], message: string, addressToU
   const deserializedRing = ring.map((point) => Point.deserialize(point));
 
   // get private key from storage
-  const state: State = await snap.request({
-    method: 'snap_manageState',
-    params: { operation: ManageStateOperation.GetState },
-  }) as object as State;
-
-  if (!state || !state.account) throw new Error('No account found');
-
-  // get the private key from the account. else throw error
-  const privateKey = state.account.find((acc) => acc.address === addressToUse)?.privateKey;
-
-  if (!privateKey) throw new Error('No private key found');
-
-  // get the claimer receiving address:
-  let address: string | undefined = undefined;
+  const privateKey = await getPrivateKey(addressToUse);
 
   const approval = await snap.request({
     method: 'snap_dialog',
@@ -46,5 +33,5 @@ export async function LSAG_Signature(ring: string[], message: string, addressToU
 
   const signature = RingSignature.sign(deserializedRing, BigInt(privateKey), message, secp256k1, linkabilityFlag, { evmCompatibility: true });
 
-  return JSON.stringify(signature.toBase64());
+  return signature.toBase64();
 }

@@ -1,6 +1,6 @@
 import { Curve, CurveName, Point, RingSignature } from "@cypher-laboratory/alicesring-lsag";
-import { State } from "../interfaces";
-import { DialogType, text, panel, ManageStateOperation, heading, copyable } from "@metamask/snaps-sdk";
+import { DialogType, text, panel, heading, copyable } from "@metamask/snaps-sdk";
+import { getPrivateKey } from "../utils";
 
 // sign a message using the Linkable SAG scheme, special version adapter for the cypher lab x iexec private claim POC
 export async function PAC_LSAG_Signature(ring: string[], claim_contract_address: string, addressToUse: string, airdropTier: string, chainId: string): Promise<string> {
@@ -8,17 +8,7 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
   const deserializedRing = ring.map((point) => Point.deserialize(point));
 
   // get private key from storage
-  const state: State = await snap.request({
-    method: 'snap_manageState',
-    params: { operation: ManageStateOperation.GetState },
-  }) as object as State;
-
-  if (!state || !state.account) throw new Error('No account found');
-
-  // get the private key from the account. else throw error
-  const privateKey = state.account.find((acc) => acc.address.toLowerCase() === addressToUse.toLowerCase())?.privateKey;
-
-  if (!privateKey) throw new Error('No private key found');
+  const privateKey = await getPrivateKey(addressToUse);
 
   // get the claimer receiving address:
   let address: string | undefined = undefined;

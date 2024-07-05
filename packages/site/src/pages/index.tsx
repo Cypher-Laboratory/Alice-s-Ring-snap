@@ -120,10 +120,15 @@ const Index = () => {
         '0221869ca3ae33be3a7327e9a0272203afa72c52a5460ceb9f4a50930531bd926a'
       ],
       message: "Hello, World!",
-      addressToUse: "0x852eE1B990bc39041232Ea832e77b789481d6b6d"
-    } satisfies { ring: string[], addressToUse: string, message: string};
+      addressToUse: "0x852eE1B990bc39041232Ea832e77b789481d6b6d",
+      linkabilityFlag: "0"
+    } satisfies { ring: string[], addressToUse: string, message: string, linkabilityFlag?: string};
     console.log("params: ", params);
-    console.log("result:\n", await invokeSnap({ method: 'SAG_Signature', params: params }));
+    const signature = await invokeSnap({ method: 'LSAG_Signature', params: params });
+    console.log("sig:\n", signature);
+    // verify the signature
+    const verify = await invokeSnap({ method: 'Verify_LSAG', params: { b64Signature: signature } });
+    console.log("verify:\n", verify);
   };
 
   return (
