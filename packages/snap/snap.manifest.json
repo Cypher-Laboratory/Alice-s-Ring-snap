@@ -1,13 +1,13 @@
 {
-  "version": "0.2.1",
-  "description": "A simple snap implementing SAG and LSAG signatures. Check https://www.cypherlab.org/",
-  "proposedName": "Ring Signatures by Cypher Lab",
+  "version": "0.3.1",
+  "description": "Use SAG and LSAG signature in metamask to create privacy enhanced dapp",
+  "proposedName": "Ring Signatures",
   "repository": {
     "type": "git",
     "url": "https://github.com/Cypher-Laboratory/Alice-s-Ring-snap"
   },
   "source": {
-    "shasum": "JuoA/QUxMN1I10uLh/PAX/1KFqVYIhvIFOWqera/Uq8=",
+    "shasum": "eXQiuntGWDGSbAfCO52o1W5glZOcEzAqCAZkyXTmxkU=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",

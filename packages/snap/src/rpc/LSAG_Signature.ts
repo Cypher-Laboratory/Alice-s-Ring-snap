@@ -10,9 +10,6 @@ export async function LSAG_Signature(ring: string[], message: string, addressToU
   // get private key from storage
   const privateKey = await getPrivateKey(addressToUse);
 
-  // get the claimer receiving address:
-  let address: string | undefined = undefined;
-
   const approval = await snap.request({
     method: 'snap_dialog',
     params: {
@@ -36,5 +33,5 @@ export async function LSAG_Signature(ring: string[], message: string, addressToU
 
   const signature = RingSignature.sign(deserializedRing, BigInt(privateKey), message, secp256k1, linkabilityFlag, { evmCompatibility: true });
 
-  return JSON.stringify(signature.toBase64());
+  return signature.toBase64();
 }
