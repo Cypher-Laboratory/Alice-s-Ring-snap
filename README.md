@@ -25,8 +25,8 @@ More about ring signatures [here](https://people.csail.mit.edu/rivest/pubs/RST01
 ## Installation & usage
 
 For an easy use of this snap, please refer to the toolkit we created [here](https://github.com/Cypher-Laboratory/Alice-s-Ring-snap-toolkit).
-It can be installed from npmjs: 
-`npm i @cypher-laboratory/alicesring-snap-sdk` 
-or
+It can be installed from npmjs: <br>
+`npm i @cypher-laboratory/alicesring-snap-sdk` <br>
+or<br>
 `yarn add @cypher-laboratory/alicesring-snap-sdk`
 
