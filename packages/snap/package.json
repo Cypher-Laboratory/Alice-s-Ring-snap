@@ -1,6 +1,6 @@
 {
   "name": "@cypher-laboratory/alicesring-snap",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Use SAG and LSAG signature in metamask to create privacy enhanced DApps",
   "repository": {
     "type": "git",
