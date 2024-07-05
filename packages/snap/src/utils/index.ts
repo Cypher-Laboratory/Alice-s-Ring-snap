@@ -10,7 +10,7 @@ export async function getPrivateKey(address: string): Promise<string> {
   if (!state || !state.account) throw new Error('No account found');
 
   // get the private key from the account. else throw error
-  const privateKey = state.account.find((acc) => acc.address === address)?.privateKey;
+  const privateKey = state.account.find((acc) => acc.address.toLowerCase() === address.toLowerCase())?.privateKey;
 
   if (!privateKey) throw new Error('No private key found');
 

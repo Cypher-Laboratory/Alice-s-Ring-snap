@@ -10,8 +10,6 @@ export async function SAG_Signature(ring: string[], message: string, addressToUs
   // get private key from storage
   const privateKey = await getPrivateKey(addressToUse);
 
-  if (!privateKey) throw new Error('No private key found');
-
   const approval = await snap.request({
     method: 'snap_dialog',
     params: {
