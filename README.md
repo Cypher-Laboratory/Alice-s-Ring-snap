@@ -12,7 +12,6 @@ It supports two types of ring signatures: [Spontaneous Anonymous Group signature
 - export the snap addresses
 - sign a message using SAG and LSAG with the snap
 - Verify a SAG or LSAG signature
-  
 
 ## What are Ring Signatures
 Ring signatures are a type of digital signature that allows a group of users to sign a message anonymously. Unlike traditional digital signatures uniquely linked to one user, ring signatures obscure the actual author by linking multiple possible signers together in a "ring."
