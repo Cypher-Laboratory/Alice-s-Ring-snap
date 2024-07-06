@@ -17,7 +17,7 @@ export async function SAG_Signature(ring: string[], message: string, addressToUs
       content: panel([
         heading(`Ring Sign a message:`),
         // text('Signature process can take up to 20 seconds. please wait.'),
-        text('Let this snap sign these content using linkable ring signature?'),
+        text('Let this snap sign these content using ring signature?'),
         text('(masked) signer address: '),
         copyable(addressToUse),
         text('Ring size: ' + ring.length),
