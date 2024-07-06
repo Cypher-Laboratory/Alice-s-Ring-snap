@@ -19,7 +19,7 @@ export async function getNewAccount() {
       content: panel([
         heading(`Add account`),
         text(
-          'You are going to generate a new account. Please manually copy the seed phrase on a physical support and keep it safe.',
+          'This snap is going to generate a new account. Please manually copy the seed phrase on a physical support and keep it safe.',
         ),
       ]),
     },
@@ -280,7 +280,7 @@ export async function getAddresses() {
       type: DialogType.Confirmation,
       content: panel([
         heading(`Get addresses:`),
-        text('Allow this snap to access all your addresses?'),
+        text('Let this website to access all your addresses?'),
         ...copyableAddresses,
       ]),
     },

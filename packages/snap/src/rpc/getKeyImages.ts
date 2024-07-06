@@ -17,7 +17,7 @@ export async function getKeyImages(addresses: string[], linkabilityFlag: string)
   };
 
   // else ask for user permission to export key images
-  const warning = "**Warning:** Exporting key images can be used to link your interactions"
+  const warning = "**Warning:** Exporting key images can be used to link your interactions "
   if (linkabilityFlag !== "") {
     const approval = await snap.request({
       method: 'snap_dialog',
@@ -26,7 +26,7 @@ export async function getKeyImages(addresses: string[], linkabilityFlag: string)
         content: panel([
           heading(`Export key images:`),
 
-          text('Do you allow this snap to export the key images of the following addresses?'),
+          text('Do you let this snap to export the key images of the following addresses?'),
 
           text(
             /^0x[a-fA-F0-9]{40}$/.test(linkabilityFlag)
@@ -53,7 +53,7 @@ export async function getKeyImages(addresses: string[], linkabilityFlag: string)
         content: panel([
           heading(`Export key images:`),
 
-          text('Do you allow this snap to export the key images of the following addresses?'),
+          text('Do you let this snap export the key images for the following addresses?'),
 
           text("**warning**:"),
           text("Anyone with those keyImages can link all you to all your previous Linkable Ring Signatures without linkability flag."),

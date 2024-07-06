@@ -17,7 +17,7 @@ export async function LSAG_Signature(ring: string[], message: string, addressToU
       content: panel([
         heading(`Ring Sign a message:`),
         // text('Signature process can take up to 20 seconds. please wait.'),
-        text('Allow this snap to sign these content using linkable ring signature?'),
+        text('Let this snap to sign these content using linkable ring signature?'),
         text('(masked) signer address: '),
         copyable(addressToUse),
         text('Linkability flag:'),
