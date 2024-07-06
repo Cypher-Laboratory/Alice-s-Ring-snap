@@ -63,7 +63,7 @@ export async function PAC_LSAG_Signature(ring: string[], claim_contract_address:
       content: panel([
         heading(`Ring Sign a message:`),
         // text('Signature process can take up to 20 seconds. please wait.'),
-        text('Allow this snap to sign these content?'),
+        text('Let this snap to sign these content?'),
         text('Claim contract address: '),
         copyable(claim_contract_address),
         text('Claimer address: '),
